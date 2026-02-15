@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Intraday Equity Trader</title>
+</head>
+<body>
+  <h2>Intraday Equity Trader</h2>
+
+  <section>
+    <h3>Capital Dashboard</h3>
+    <pre id="capital"></pre>
+  </section>
+
+  <section>
+    <h3>Stocks</h3>
+    <input id="symbol" placeholder="RELIANCE" />
+    <input id="token" placeholder="token" />
+    <button onclick="addStock()">Add</button>
+    <pre id="stocks"></pre>
+  </section>
+
+  <section>
+    <h3>Algo Controls</h3>
+    <textarea id="algo" rows="8" cols="80">{"name":"ema1","template":"ema_crossover","stoploss_pct":0.5,"target_pct":1,"risk_per_trade":500,"max_trades_per_day":3,"max_daily_loss":1500,"max_open_trades":1,"capital_per_trade":20000,"watchlist":["RELIANCE"]}</textarea><br/>
+    <button onclick="saveAlgo()">Save Algo</button>
+    <pre id="algos"></pre>
+  </section>
+
+  <section>
+    <h3>Open Trades</h3>
+    <pre id="positions"></pre>
+  </section>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
