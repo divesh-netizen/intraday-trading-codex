@@ -7,31 +7,15 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
 
+from app.state import state
 from app.api.routes import algos, control, dashboard, stocks
-from app.brokers.factory import get_broker
 from app.core.config import settings
-from app.data.market_data import MarketDataManager
 from app.db.database import Base, SessionLocal, engine
-from app.engine.algo_manager import AlgoManager
-from app.engine.execution import ExecutionEngine
-from app.engine.risk import RiskContext, RiskEngine
+from app.engine.risk import RiskContext
 from app.engine.strategy import evaluate
 from app.services.ledger import snapshot
 from app.services.reset_service import should_square_off
 
-
-class AppState:
-    def __init__(self):
-        self.broker = get_broker(settings.broker_name)
-        self.market_data = MarketDataManager(self.broker)
-        self.algo_manager = AlgoManager()
-        self.risk_engine = RiskEngine()
-        self.execution_engine = ExecutionEngine(self.broker)
-        self.global_max_open_positions = 2
-        self.global_max_daily_loss = 3000
-
-
-state = AppState()
 
 app = FastAPI(title=settings.app_name)
 app.mount("/static", StaticFiles(directory="app/ui/static"), name="static")
